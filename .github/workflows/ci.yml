@@ -1,0 +1,22 @@
+name: build and test
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: website-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  check:
+    name: build and test
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Check JavaScript and local assets
+        run: |
+          node --check dist/appearance.js
+          node --check dist/site.js
+          python3 scripts/check-site.py
