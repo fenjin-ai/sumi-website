@@ -71,7 +71,7 @@
       fitStory();
       if (wideScreen.matches && !reducedMotion.matches) {
         const rect = positions[index];
-        atelier.style.setProperty('--travel', Math.max(-1, Math.min(1, (rect.top + rect.height / 2 - center) / rect.height)));
+        atelier.style.setProperty('--travel', Math.max(-1, Math.min(1, (rect.top + rect.height / 2 - target) / rect.height)));
       }
     }
     function requestUpdate() {
