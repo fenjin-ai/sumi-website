@@ -1,9 +1,9 @@
 ---
-title: "Privacy · LeftBlank"
-description: "How LeftBlank handles your documents, optional network services, and website preferences."
-heading: "Privacy, with room to write."
+title: 'Privacy · LeftBlank'
+description: 'How LeftBlank handles your documents, optional network services, and website preferences.'
+heading: 'Privacy, with room to write.'
 aliases:
-  - "/privacy.html"
+  - '/privacy.html'
 ---
 
 Effective October 2, 2026. This policy covers LeftBlank for Mac and leftblank.app, published by Fenjin Wang.

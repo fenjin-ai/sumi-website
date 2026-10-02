@@ -1,0 +1,25 @@
+[project]
+name = "leftblank-website-checks"
+version = "0.0.0"
+requires-python = ">=3.11"
+
+[dependency-groups]
+dev = ["pytest==9.1.1", "pytest-cov==7.0.0", "ruff==0.16.10"]
+
+[tool.ruff]
+target-version = "py39"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "C4", "PIE", "RUF", "PT", "PTH"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests/python"]
+addopts = "--strict-config --strict-markers --cov=scripts --cov-report=term-missing --cov-report=html:coverage/python --cov-report=json:coverage/python.json --cov-fail-under=80"
+
+[tool.coverage.run]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 80

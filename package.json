@@ -1,0 +1,35 @@
+{
+  "name": "leftblank-website",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.15.0"
+  },
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint:js": "eslint . --max-warnings 0",
+    "lint:css": "stylelint 'assets/css/**/*.css' --max-warnings 0",
+    "lint:html": "html-validate 'dist/**/*.html'",
+    "lint:source": "npm run format:check && npm run lint:js && npm run lint:css",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:browser": "playwright test",
+    "verify": "sh scripts/build.sh"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.63.0",
+    "@vitest/coverage-v8": "5.0.3",
+    "eslint": "10.11.0",
+    "globals": "17.13.0",
+    "html-validate": "11.16.1",
+    "jsdom": "30.1.1",
+    "prettier": "3.9.9",
+    "prettier-plugin-go-template": "0.0.15",
+    "stylelint": "17.16.0",
+    "stylelint-config-standard": "40.0.0",
+    "vitest": "5.0.3"
+  }
+}

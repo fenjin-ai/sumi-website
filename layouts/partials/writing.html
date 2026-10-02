@@ -1,6 +1,21 @@
 {{ with .Params.writing }}
-<section class="writing wrap" id="writing" aria-labelledby="writing-title">
-  <div class="writing-intro"><span class="eyebrow">{{ .eyebrow }}</span><h2 id="writing-title">{{ .title }}</h2><p>{{ .description }}</p></div>
-  <div class="writing-grid">{{ range .features }}<article class="writing-feature"><div class="feature-visual {{ .visual }}-visual" aria-hidden="true">{{ partial (printf "visuals/%s.html" .visual) . }}</div><span class="eyebrow">{{ .label }}</span><h3>{{ .title }}</h3><p>{{ .description }}</p></article>{{ end }}</div>
-</section>
+  <section class="writing wrap" id="writing" aria-labelledby="writing-title">
+    <div class="writing-intro">
+      <span class="eyebrow">{{ .eyebrow }}</span>
+      <h2 id="writing-title">{{ .title }}</h2>
+      <p>{{ .description }}</p>
+    </div>
+    <div class="writing-grid">
+      {{ range .features }}
+        <article class="writing-feature">
+          <div class="feature-visual {{ .visual }}-visual" aria-hidden="true">
+            {{ partial (printf "visuals/%s.html" .visual) . }}
+          </div>
+          <span class="eyebrow">{{ .label }}</span>
+          <h3>{{ .title }}</h3>
+          <p>{{ .description }}</p>
+        </article>
+      {{ end }}
+    </div>
+  </section>
 {{ end }}

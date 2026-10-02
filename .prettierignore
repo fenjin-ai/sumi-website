@@ -1,0 +1,12 @@
+dist/
+resources/
+node_modules/
+coverage/
+playwright-report/
+test-results/
+.tools/
+.venv/
+static/
+package-lock.json
+uv.lock
+reports/

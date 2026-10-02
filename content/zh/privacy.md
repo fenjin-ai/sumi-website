@@ -1,7 +1,7 @@
 ---
-title: "隐私政策 · 留白"
-description: "了解留白如何处理文稿、可选网络服务以及网站偏好设置。"
-heading: "为写作，也为隐私留白。"
+title: '隐私政策 · 留白'
+description: '了解留白如何处理文稿、可选网络服务以及网站偏好设置。'
+heading: '为写作，也为隐私留白。'
 ---
 
 生效日期：2026 年 10 月 2 日。本政策适用于 Fenjin Wang 发布的 Mac 应用留白（LeftBlank）及 leftblank.app。

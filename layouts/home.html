@@ -1,9 +1,13 @@
 {{ define "main" }}
-<main id="main">
-  {{ partial "hero.html" . }}
-  {{ partial "atelier.html" . }}
-  {{ partial "writing.html" . }}
-  {{ partial "examples.html" . }}
-  <section class="closing wrap"><span class="eyebrow">{{ .Params.closing.eyebrow }}</span><h2>{{ .Params.closing.title }}</h2>{{ partial "download.html" (dict "class" "button primary") }}</section>
-</main>
+  <main id="main">
+    {{ partial "hero.html" . }}
+    {{ partial "atelier.html" . }}
+    {{ partial "writing.html" . }}
+    {{ partial "examples.html" . }}
+    <section class="closing wrap">
+      <span class="eyebrow">{{ .Params.closing.eyebrow }}</span>
+      <h2>{{ .Params.closing.title }}</h2>
+      {{ partial "download.html" (dict "class" "button primary") }}
+    </section>
+  </main>
 {{ end }}

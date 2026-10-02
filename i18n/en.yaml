@@ -1,50 +1,50 @@
 skip-to-content:
-  other: "Skip to content"
+  other: 'Skip to content'
 leftblank:
-  other: "LeftBlank"
+  other: 'LeftBlank'
 possibilities:
-  other: "Possibilities"
+  other: 'Possibilities'
 the-writing-space:
-  other: "The writing space"
+  other: 'The writing space'
 appearance:
-  other: "Appearance"
+  other: 'Appearance'
 see-what-you-can-make:
-  other: "See what you can make ↓"
+  other: 'See what you can make ↓'
 download-the-examples:
-  other: "Download the examples ↗"
+  other: 'Download the examples ↗'
 ink-for-your-thoughts:
-  other: "Ink for your thoughts"
+  other: 'Ink for your thoughts'
 support:
-  other: "Support"
+  other: 'Support'
 privacy:
-  other: "Privacy"
+  other: 'Privacy'
 download-nightly:
-  other: "Download nightly"
+  other: 'Download nightly'
 home-label:
-  other: "LeftBlank home"
+  other: 'LeftBlank home'
 navigation-label:
-  other: "Main navigation"
+  other: 'Main navigation'
 hero-art-label:
-  other: "Original works created in LeftBlank"
+  other: 'Original works created in LeftBlank'
 appearance-system:
-  other: "System"
+  other: 'System'
 appearance-light:
-  other: "Light"
+  other: 'Light'
 appearance-dark:
-  other: "Dark"
+  other: 'Dark'
 appearance-change:
-  other: "Appearance: {current}. Change to {next}."
+  other: 'Appearance: {current}. Change to {next}.'
 nightly-note:
-  other: "Nightly preview · macOS 14+ · Apple silicon"
+  other: 'Nightly preview · macOS 14+ · Apple silicon'
 not-found:
-  other: "This page is still blank."
+  other: 'This page is still blank.'
 back-home:
-  other: "Back to LeftBlank"
+  other: 'Back to LeftBlank'
 download-loading:
-  other: "Finding the latest nightly…"
+  other: 'Finding the latest nightly…'
 full-view:
-  other: "Take a closer look ↗"
+  other: 'Take a closer look ↗'
 close-view:
-  other: "Close preview"
+  other: 'Close preview'
 swipe-hint:
-  other: "Swipe to wander through the studio →"
+  other: 'Swipe to wander through the studio →'

@@ -1,0 +1,65 @@
+name: PR coverage report
+on:
+  workflow_run:
+    workflows: [Website CI]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: Completed Website CI pull-request run to report
+        required: true
+permissions:
+  contents: read
+  actions: read
+  pull-requests: write
+concurrency:
+  group: coverage-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: false
+jobs:
+  report:
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion != 'cancelled')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Find coverage summary from the completed run
+        id: summary
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+        with:
+          script: |
+            const run = context.payload.workflow_run ?? (await github.rest.actions.getWorkflowRun({
+              ...context.repo, run_id: Number(context.payload.inputs.run_id)
+            })).data;
+            if (run.name !== 'Website CI' || run.event !== 'pull_request' || run.status !== 'completed') {
+              throw new Error('Expected a completed Website CI pull-request run.');
+            }
+            core.setOutput('run_id', run.id);
+            const artifacts = await github.paginate(github.rest.actions.listWorkflowRunArtifacts, {
+              ...context.repo, run_id: run.id
+            });
+            core.setOutput('exists', artifacts.some(artifact => artifact.name === 'coverage-summary' && !artifact.expired));
+      # Only trusted main-branch reporter code runs with the comment token.
+      # PR artifacts are parsed as numeric JSON, never executed.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: steps.summary.outputs.exists == 'true'
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        if: steps.summary.outputs.exists == 'true'
+        with:
+          name: coverage-summary
+          path: reports
+          run-id: ${{ steps.summary.outputs.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create or update the coverage comment for this commit
+        if: steps.summary.outputs.exists == 'true'
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+        env:
+          REPORT_RUN_ID: ${{ steps.summary.outputs.run_id }}
+        with:
+          script: |
+            const { data: run } = await github.rest.actions.getWorkflowRun({
+              ...context.repo, run_id: Number(process.env.REPORT_RUN_ID)
+            });
+            const { default: publish } = await import(`${process.env.GITHUB_WORKSPACE}/scripts/coverage-comment.js`);
+            await publish({ github, context: { ...context, payload: { workflow_run: run } }, core });

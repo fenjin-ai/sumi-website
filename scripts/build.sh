@@ -14,7 +14,8 @@ case "$hugo_banner" in
     ;;
 esac
 
-node --check assets/js/appearance.js
-node --check assets/js/site.js
+npm run lint:source
 hugo --cleanDestinationDir --minify --printI18nWarnings --panicOnWarning
 python3 scripts/check-site.py
+npm run lint:html
+npm run test:coverage
