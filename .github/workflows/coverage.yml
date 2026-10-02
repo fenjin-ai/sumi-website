@@ -62,4 +62,4 @@ jobs:
               ...context.repo, run_id: Number(process.env.REPORT_RUN_ID)
             });
             const { default: publish } = await import(`${process.env.GITHUB_WORKSPACE}/scripts/coverage-comment.js`);
-            await publish({ github, context: { ...context, payload: { workflow_run: run } }, core });
+            await publish({ github, context: { repo: context.repo, payload: { workflow_run: run } }, core });
