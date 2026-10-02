@@ -23,10 +23,7 @@ hugo server --bind 127.0.0.1 --port 4398 --disableFastRender
 For a production build and the same checks as CI:
 
 ```sh
-node --check assets/js/appearance.js
-node --check assets/js/site.js
-hugo --cleanDestinationDir --minify --printI18nWarnings --panicOnWarning
-python3 scripts/check-site.py
+sh scripts/build.sh
 ```
 
 The checker uses Python 3.9+ and its standard library. It validates local links and anchors, image descriptions and dimensions, asset integrity, reciprocal language alternates, page metadata, JSON-LD, six localized captures, manifests, sitemap coverage, and robots. CI verifies the pinned Hugo archive against its published checksum before running these checks.
@@ -47,9 +44,11 @@ Primary buttons point directly to a verified macOS Apple silicon preview ZIP. An
 
 ## Publish
 
-The existing Site identity is preserved in `.openai/hosting.json` and serves `dist/`. Build and check, then use the Sites workflow to push the exact source, package output, save a version, and deploy. DNS remains in Cloudflare. GitHub checks do not publish automatically. Credentials do not belong in the repository.
+Cloudflare Pages connects directly to `leftblank-app/website` on GitHub. The production branch is `main`: merging a PR or pushing to `main` runs the checked build and publishes `dist/` only after all checks pass. Other branches produce preview deployments. GitHub Actions runs the same checked build on PRs and on `main`.
 
-The generated output also works on any static host. For Cloudflare Pages, set the build command to `hugo --minify`, the output directory to `dist`, and `HUGO_VERSION` to the version in `.hugo-version`. Keep canonical URLs pointed at `https://leftblank.app` for previews as well.
+Pages settings are: build command `sh scripts/build.sh`, output directory `dist`, and `HUGO_VERSION=0.166.0` in both production and preview environments. When changing `.hugo-version`, update that Pages variable as well; the build refuses a mismatched compiler. No GitHub deployment secrets are needed. Keep canonical URLs pointed at `https://leftblank.app` for preview deployments too.
+
+The previous Sites publication is recorded in `.openai/hosting.json` for recovery. It does not follow GitHub merges; Cloudflare Pages owns automatic production deployment. Generated output also works on any other static host.
 
 ## License
 

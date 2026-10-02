@@ -26,8 +26,4 @@ jobs:
           tar -xzf "hugo_${version}_linux-amd64.tar.gz" hugo
           echo "$PWD" >> "$GITHUB_PATH"
       - name: Build both languages and check SEO and assets
-        run: |
-          node --check assets/js/appearance.js
-          node --check assets/js/site.js
-          hugo --cleanDestinationDir --minify --printI18nWarnings --panicOnWarning
-          python3 scripts/check-site.py
+        run: sh scripts/build.sh
