@@ -36,6 +36,12 @@
     let selected = -1;
     let frame;
 
+    function fitStory() {
+      if (wideScreen.matches || selected < 0) return;
+      const style = getComputedStyle(storyList);
+      const height = stories[selected].offsetHeight + parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
+      storyList.style.setProperty('--story-height', `${height}px`);
+    }
     function select(index) {
       if (selected === index) return;
       selected = index;
@@ -57,19 +63,19 @@
     }
     function update() {
       frame = undefined;
-      if (!wideScreen.matches) return;
-      const center = innerHeight * .5;
       const positions = stories.map(story => story.getBoundingClientRect());
-      const index = positions.reduce((closest, rect, i) =>
-        Math.abs(rect.top + rect.height / 2 - center) < Math.abs(positions[closest].top + positions[closest].height / 2 - center) ? i : closest, 0);
+      const target = wideScreen.matches ? innerHeight * .5 : storyList.getBoundingClientRect().left + parseFloat(getComputedStyle(storyList).paddingLeft);
+      const distance = rect => Math.abs((wideScreen.matches ? rect.top + rect.height / 2 : rect.left) - target);
+      const index = positions.reduce((closest, rect, i) => distance(rect) < distance(positions[closest]) ? i : closest, 0);
       select(index);
-      if (!reducedMotion.matches) {
+      fitStory();
+      if (wideScreen.matches && !reducedMotion.matches) {
         const rect = positions[index];
         atelier.style.setProperty('--travel', Math.max(-1, Math.min(1, (rect.top + rect.height / 2 - center) / rect.height)));
       }
     }
     function requestUpdate() {
-      if (wideScreen.matches && frame === undefined) frame = requestAnimationFrame(update);
+      if (frame === undefined) frame = requestAnimationFrame(update);
     }
     function setLayout() {
       selected = -1;
@@ -79,24 +85,21 @@
         visual.inert = false;
       });
       atelier.classList.toggle('is-enhanced', wideScreen.matches);
+      storyList.style.removeProperty('--story-height');
       storyList.tabIndex = wideScreen.matches ? -1 : 0;
-      if (wideScreen.matches) update();
+      update();
     }
     wideScreen.addEventListener('change', setLayout);
     addEventListener('scroll', requestUpdate, { passive: true });
     addEventListener('resize', requestUpdate, { passive: true });
+    storyList.addEventListener('scroll', requestUpdate, { passive: true });
     storyList.addEventListener('focusin', event => {
       const story = event.target.closest('[data-story]');
       if (story && wideScreen.matches) select(stories.indexOf(story));
     });
     setLayout();
-    const cardsInView = new IntersectionObserver(entries => {
-      if (wideScreen.matches) return;
-      entries.forEach(entry => {
-        if (entry.isIntersecting) select(stories.indexOf(entry.target));
-      });
-    }, { root: storyList, threshold: .6 });
-    stories.forEach(story => cardsInView.observe(story));
+    const cardSizes = new ResizeObserver(requestUpdate);
+    stories.forEach(story => cardSizes.observe(story));
     // Native fragment scrolling can run before the desktop stage is assembled.
     const linkedStory = stories.find(story => `#${story.id}` === location.hash);
     if (linkedStory) requestAnimationFrame(() => {

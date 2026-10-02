@@ -101,12 +101,13 @@ html[lang="zh-Hans"] .story-copy h3 { line-height: 1.5; letter-spacing: .01em; }
   .possibilities { padding-bottom: 35px; overflow: hidden; }
   .swipe-hint { display: block; font-size: .75rem; color: var(--muted); margin-bottom: 20px; }
   .atelier { padding: 0; }
-  .atelier-stories { display: flex; overflow-x: auto; overflow-y: hidden; gap: 24px; padding: 0 36px 40px; scroll-snap-type: x mandatory; scroll-padding-inline: 36px; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: var(--sage) transparent; }
+  .atelier-stories { display: flex; align-items: flex-start; height: var(--story-height, auto); transition: height .25s ease; overflow-x: auto; overflow-y: hidden; gap: 24px; padding: 0 36px 40px; scroll-snap-type: x mandatory; scroll-padding-inline: 36px; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: var(--sage) transparent; }
   .atelier-story { flex: 0 0 min(78vw, 620px); scroll-snap-align: start; padding: 25px 28px 35px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
   .story-copy h3 { font-size: 30px; min-height: 2.5em; }
   .story-copy p { min-height: 5.7em; }
   .work-visual { margin: 30px 0 20px; min-height: 240px; }
-  .poster-sheet { width: 36%; top: 45%; right: 0; }
+  .work-visual[data-visual="poster"] { padding-bottom: 18%; }
+  .poster-sheet { width: 36%; top: auto; bottom: 0; right: 0; }
   .work-detail { position: relative; inset: auto; margin: -18px 0 0 auto; }
   .detail-notes { width: 84%; padding: 17px; }
   .equation { font-size: 38px; }
