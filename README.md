@@ -1,8 +1,8 @@
-# Sumi website
+# LeftBlank website
 
 **Ink for your thoughts**
 
-The bilingual landing page for [Sumi](https://github.com/fenjin-ai/sumi), at [sumi.fenjin.ai](https://sumi.fenjin.ai).
+The bilingual landing page for [LeftBlank](https://github.com/leftblank-app/leftblank), at [leftblank.app](https://leftblank.app).
 
 Chinese identity: **留白 · 此中有真意，欲辨已忘言**.
 
@@ -27,8 +27,8 @@ Open `http://127.0.0.1:4397`. Check both languages and appearances, keyboard nav
 
 The public site is hosted with Sites and uses the project identity in `.openai/hosting.json`. DNS is managed in Cloudflare. Use the Sites publishing workflow to push the reviewed source, save the static archive and deploy a version. GitHub is the public source of record; a GitHub push runs checks but does not publish by itself. Hosting credentials never belong in this repository.
 
-The page currently links to the public application repository because Sumi is a development preview with no public release package. Once available, replace the two primary GitHub calls to action with the official download or App Store URL. Do not display an App Store badge before the listing exists.
+The page currently links to the public application repository because LeftBlank is a development preview with no public release package. Once available, replace the two primary GitHub calls to action with the official download or App Store URL. Do not display an App Store badge before the listing exists.
 
 ## License
 
-MIT. Sumi's brand name and Sigma artwork identify the Sumi project; forks should use their own product identity.
+MIT. LeftBlank's brand name and Sigma artwork identify the LeftBlank project; forks should use their own product identity.
