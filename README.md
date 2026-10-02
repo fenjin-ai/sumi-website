@@ -1,34 +1,54 @@
 # LeftBlank website
 
-**Ink for your thoughts**
+The bilingual product website at [leftblank.app](https://leftblank.app), built with Hugo. Content lives in language-specific Markdown files; shared templates produce complete HTML pages. CSS and a small browser script add the spatial product showcase. No theme dependency, database, npm installation, analytics, or external web fonts are needed.
 
-The bilingual landing page for [LeftBlank](https://github.com/leftblank-app/leftblank), at [leftblank.app](https://leftblank.app).
+## Edit the site
 
-Chinese identity: **留白 · 此中有真意，欲辨已忘言**.
+- `content/en/_index.md`, `content/zh/_index.md`: homepage copy and the six creative scenes. Keep scene IDs in the same order in both languages.
+- `content/*/privacy.md`: localized privacy pages in ordinary Markdown.
+- `i18n/`: short interface labels, navigation, and download messages.
+- `layouts/`: shared Hugo templates and small section partials.
+- `data/works.yaml`: scene IDs, screenshot filenames, and original document dimensions.
+- `assets/css/`, `assets/js/`: base styles, a separate showcase stylesheet, and progressive enhancements, bundled and fingerprinted by Hugo Pipes.
+- `static/`: original documents, real app captures, social cards, icons, and the fourteen-example ZIP.
+- `hugo.toml`: language routes, production domain, GitHub URL, and direct nightly fallback.
+- `dist/`: generated output, ignored by Git. Edit the source above.
 
-## Structure
-
-The complete site is in `dist/`: plain HTML, CSS and a small amount of JavaScript. There is no build step, package manager, application server, analytics or external font dependency. Appearance follows the system by default. Language and appearance preferences stay in the browser, and `?lang=en` / `?lang=zh` can share a language choice.
-
-Brand assets come from the app repository's deterministic Sigma generator. The hero composes original Typst works into a paper collage. A keyboard-accessible six-scene gallery shows real app captures: essays, technical notes, reports, presentation pages, diagrams and posters. Images change with the language. The downloadable ZIP contains fourteen original, compilable Typst examples. Presentation pages export to PDF; the site does not promise PPTX or animation export. The app privacy policy is at `/privacy.html`.
-
-## Develop
+The compiler is pinned in `.hugo-version`. Use that version of Hugo; the standard edition is sufficient.
 
 ```sh
-python3 -m http.server 4397 --bind 127.0.0.1 --directory dist
-node --check dist/appearance.js
-node --check dist/site.js
+hugo server --bind 127.0.0.1 --port 4398 --disableFastRender
+```
+
+For a production build and the same checks as CI:
+
+```sh
+node --check assets/js/appearance.js
+node --check assets/js/site.js
+hugo --cleanDestinationDir --minify --printI18nWarnings --panicOnWarning
 python3 scripts/check-site.py
 ```
 
-Open `http://127.0.0.1:4397`. Check both languages and appearances, keyboard navigation, reduced motion and mobile layouts before publishing. CI checks syntax and local references on every PR; monthly Dependabot updates are grouped into one PR.
+The checker uses Python 3.9+ and its standard library. It validates local links and anchors, image descriptions and dimensions, asset integrity, reciprocal language alternates, page metadata, JSON-LD, six localized captures, manifests, sitemap coverage, and robots. CI verifies the pinned Hugo archive against its published checksum before running these checks.
+
+## Languages, search, and interaction
+
+English lives at `/`, Chinese at `/zh/`. Each has its own HTML, screenshots, canonical URL, reciprocal `hreflang`, social metadata, and application structured data. Hugo generates sitemap and robots files. Privacy lives at `/privacy/` and `/zh/privacy/`; `/privacy.html` redirects to its new location. Old `?lang=en` / `?lang=zh` links still work. Explicit language links retain browser preferences. System/light/dark appearance is resolved before first paint.
+
+On wide screens, the showcase follows normal page scrolling: a sticky stage changes between real app captures, floating finished pages, and topic-specific ink drawings. Pointer movement adds depth and a local magnifying lens. On smaller screens, the same six articles become native horizontally scrollable cards, with keyboard access and scroll snapping. Every scene offers an accessible full-size image dialog with native Escape and focus restoration. There is no autoplay or scrolling interception.
+
+Reduced motion disables animations, pointer effects, and transforms. Without JavaScript, all six scenes remain readable, language links and direct downloads work, and large-image links open the original screenshots. Browser checks after interaction changes should cover both languages and appearances, desktop/mobile resizing, the final scene, keyboard preview/close, and horizontal scrolling.
+
+## Downloads
+
+Primary buttons point directly to a verified macOS Apple silicon preview ZIP. An ordinary click queries GitHub's public releases API for the newest published `preview-*` release with a matching ZIP. Failure or timeout falls back to the direct link; modified clicks and JavaScript-free browsers also use it. No request runs on page load. Refresh `params.downloadURL` in `hugo.toml` when publishing to keep the fallback current.
 
 ## Publish
 
-The public site is hosted with Sites and uses the project identity in `.openai/hosting.json`. DNS is managed in Cloudflare. Use the Sites publishing workflow to push the reviewed source, save the static archive and deploy a version. GitHub is the public source of record; a GitHub push runs checks but does not publish by itself. Hosting credentials never belong in this repository.
+The existing Site identity is preserved in `.openai/hosting.json` and serves `dist/`. Build and check, then use the Sites workflow to push the exact source, package output, save a version, and deploy. DNS remains in Cloudflare. GitHub checks do not publish automatically. Credentials do not belong in the repository.
 
-The page currently links to the public application repository because LeftBlank is a development preview with no public release package. Once available, replace the two primary GitHub calls to action with the official download or App Store URL. Do not display an App Store badge before the listing exists.
+The generated output also works on any static host. For Cloudflare Pages, set the build command to `hugo --minify`, the output directory to `dist`, and `HUGO_VERSION` to the version in `.hugo-version`. Keep canonical URLs pointed at `https://leftblank.app` for previews as well.
 
 ## License
 
-MIT. LeftBlank's brand name and Sigma artwork identify the LeftBlank project; forks should use their own product identity.
+MIT. LeftBlank's name and Sigma artwork identify this project; forks should use their own identity.

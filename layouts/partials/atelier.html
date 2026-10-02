@@ -1,0 +1,28 @@
+<section class="possibilities" id="possibilities" aria-labelledby="possibilities-title">
+  <div class="wrap section-heading">
+    <div><span class="eyebrow">{{ .Params.showcase.eyebrow }}</span><h2 id="possibilities-title"><span>{{ .Params.showcase.title }}</span><br><em>{{ .Params.showcase.emphasis }}</em></h2></div>
+    <p>{{ .Params.showcase.description }}</p>
+  </div>
+  <p class="swipe-hint wrap">{{ T "swipe-hint" }}</p>
+  <div class="atelier wrap" data-atelier data-scene="essay">
+    <div class="atelier-stage">
+      {{ partial "ink.html" . }}
+      <div class="atelier-light" aria-hidden="true"></div>
+      <span class="capture-lens" aria-hidden="true"></span>
+    </div>
+    <div class="atelier-stories" tabindex="0" aria-label="{{ T "possibilities" }}">
+      {{ range .Params.scenes }}
+      {{ $work := index hugo.Data.works .id }}
+      {{ $capture := printf "/assets/works/app-%s.%s.webp" $work.file site.Language.Params.imageLocale }}
+      <article class="atelier-story" id="work-{{ .id }}" data-story="{{ .id }}">
+        <div class="story-copy"><span class="eyebrow">{{ .label }}</span><h3 id="title-{{ .id }}">{{ .title }}</h3><p>{{ .description }}</p><a class="text-link" href="{{ $capture }}" data-full-view>{{ T "full-view" }}</a></div>
+        <figure class="work-visual" data-visual="{{ .id }}" aria-labelledby="title-{{ .id }}">
+          <div class="work-window"><img src="{{ $capture }}" width="1800" height="985" alt="{{ .alt }}" loading="lazy" decoding="async"></div>
+          <img class="work-page" src="/assets/works/{{ $work.file }}.{{ site.Language.Params.imageLocale }}.webp" width="{{ $work.width }}" height="{{ $work.height }}" alt="" aria-hidden="true" loading="lazy" decoding="async">
+        </figure>
+      </article>
+      {{ end }}
+    </div>
+  </div>
+  <dialog class="image-viewer" data-viewer aria-label="{{ T "full-view" }}"><button class="viewer-close" type="button" aria-label="{{ T "close-view" }}">{{ T "close-view" }} <span aria-hidden="true">×</span></button><img width="1800" height="985" alt="{{ T "full-view" }}"></dialog>
+</section>
