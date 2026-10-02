@@ -23,6 +23,30 @@ for (const [route, language] of [
       await page.goto(route);
       await expect(page.locator('html')).toHaveAttribute('lang', language);
       await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
+      await expect
+        .poll(() =>
+          page
+            .locator('.hero-copy')
+            .evaluate((element) => getComputedStyle(element).opacity),
+        )
+        .toBe('1');
+      const pageAccessibility = await new AxeBuilder({ page })
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+        // Inactive scene copy is audited separately once it becomes readable.
+        .exclude('.atelier-story:not(.is-active)')
+        // These labels belong to artwork, whose images already have alternative text.
+        .exclude('.hero-art .art-label')
+        .exclude('.feature-visual[aria-hidden="true"]')
+        .analyze();
+      expect(
+        pageAccessibility.violations.map((violation) => ({
+          rule: violation.id,
+          nodes: violation.nodes.map((node) => ({
+            target: node.target,
+            summary: node.failureSummary,
+          })),
+        })),
+      ).toEqual([]);
       const captures = page.locator('.atelier-stage [data-visual]');
       await expect(captures).toHaveCount(6);
       for (const scene of [
@@ -54,28 +78,25 @@ for (const [route, language] of [
             (element) => element.hidden === 'hidden' && element.inert,
           ),
         ).toBe(true);
+        await expect
+          .poll(() =>
+            page
+              .locator('.atelier-story.is-active .story-copy')
+              .evaluate((element) => getComputedStyle(element).opacity),
+          )
+          .toBe('1');
+        const accessibility = await new AxeBuilder({ page })
+          .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+          // Scope contrast checks to visible scene copy, away from offscreen overlapping artwork.
+          .include('.atelier-story.is-active')
+          .analyze();
+        expect(
+          accessibility.violations.map((violation) => ({
+            rule: violation.id,
+            targets: violation.nodes.map((node) => node.target),
+          })),
+        ).toEqual([]);
       }
-      await expect
-        .poll(() =>
-          page
-            .locator('.atelier-story.is-active .story-copy')
-            .evaluate((element) => getComputedStyle(element).opacity),
-        )
-        .toBe('1');
-      const accessibility = await new AxeBuilder({ page })
-        .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
-        // Audit the current readable scene; other scenes are intentionally dimmed until selected.
-        .exclude('.atelier-story:not(.is-active)')
-        // These labels belong to artwork, whose images already have alternative text.
-        .exclude('.hero-art .art-label')
-        .exclude('.feature-visual[aria-hidden="true"]')
-        .analyze();
-      expect(
-        accessibility.violations.map((violation) => ({
-          rule: violation.id,
-          targets: violation.nodes.map((node) => node.target),
-        })),
-      ).toEqual([]);
       expect(errors).toEqual([]);
     });
   }
