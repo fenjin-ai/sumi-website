@@ -1,10 +1,39 @@
 <header class="site-header wrap">
-  <a class="identity" href="{{ site.Home.RelPermalink }}" aria-label="{{ T "home-label" }}"><span class="mark" aria-hidden="true"></span><span>{{ T "leftblank" }}</span></a>
+  <a
+    class="identity"
+    href="{{ site.Home.RelPermalink }}"
+    aria-label="{{ T "home-label" }}"
+    ><span class="mark" aria-hidden="true"></span
+    ><span>{{ T "leftblank" }}</span></a
+  >
   <nav aria-label="{{ T "navigation-label" }}">
-    <a class="nav-about" href="{{ site.Home.RelPermalink }}#possibilities">{{ T "possibilities" }}</a>
-    <a class="nav-about" href="{{ site.Home.RelPermalink }}#writing">{{ T "the-writing-space" }}</a>
-    {{ range .Translations }}<a id="language" href="{{ .RelPermalink }}" lang="{{ .Language.Params.htmlLang }}" hreflang="{{ .Language.Params.htmlLang }}" aria-label="{{ .Language.Params.switchLabel }}">{{ .Language.Label }}</a>{{ end }}
-    <button id="appearance" type="button" data-system="{{ T "appearance-system" }}" data-light="{{ T "appearance-light" }}" data-dark="{{ T "appearance-dark" }}" data-label="{{ T "appearance-change" }}" aria-label="{{ T "appearance" }}"><span aria-hidden="true">◐</span></button>
+    <a class="nav-about" href="{{ site.Home.RelPermalink }}#possibilities"
+      >{{ T "possibilities" }}</a
+    >
+    <a class="nav-about" href="{{ site.Home.RelPermalink }}#writing"
+      >{{ T "the-writing-space" }}</a
+    >
+    {{ range .Translations }}
+      <a
+        id="language"
+        href="{{ .RelPermalink }}"
+        lang="{{ .Language.Params.htmlLang }}"
+        hreflang="{{ .Language.Params.htmlLang }}"
+        aria-label="{{ .Language.Params.switchLabel }}"
+        >{{ .Language.Label }}</a
+      >
+    {{ end }}
+    <button
+      id="appearance"
+      type="button"
+      data-system="{{ T "appearance-system" }}"
+      data-light="{{ T "appearance-light" }}"
+      data-dark="{{ T "appearance-dark" }}"
+      data-label="{{ T "appearance-change" }}"
+      aria-label="{{ T "appearance" }}"
+    >
+      <span aria-hidden="true">◐</span>
+    </button>
     {{ partial "download.html" (dict "class" "header-cta") }}
   </nav>
 </header>

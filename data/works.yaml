@@ -1,25 +1,25 @@
 essay:
-  file: "01-essay"
+  file: '01-essay'
   width: 1000
   height: 1414
 notes:
-  file: "02-notes"
+  file: '02-notes'
   width: 1000
   height: 1414
 report:
-  file: "03-report"
+  file: '03-report'
   width: 1000
   height: 1414
   values: [1.5, 2.0, 1.0, 3.0, 2.5]
 slides:
-  file: "04-slides"
+  file: '04-slides'
   width: 1000
   height: 562
 diagram:
-  file: "05-diagram"
+  file: '05-diagram'
   width: 1000
   height: 1414
 poster:
-  file: "06-poster"
+  file: '06-poster'
   width: 1000
   height: 1414

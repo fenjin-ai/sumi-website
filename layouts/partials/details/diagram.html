@@ -1,8 +1,36 @@
 <svg viewBox="0 0 350 230" fill="none">
-  <defs><marker id="detail-arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M1 1L6 4 1 7"/></marker></defs>
-  <g class="flow-lines" marker-end="url(#detail-arrow)"><path d="M112 49H222"/><path d="M277 74V158"/><path d="M225 183H116"/><path d="M233 73L115 159"/></g>
-  <g class="flow-node node-request"><rect x="10" y="24" width="104" height="50" rx="12"/><text x="62" y="54">{{ .detail.request }}</text></g>
-  <g class="flow-node node-cache"><rect x="225" y="24" width="104" height="50" rx="12"/><text x="277" y="54">{{ .detail.cache }}</text></g>
-  <g class="flow-node node-source"><rect x="225" y="158" width="104" height="50" rx="12"/><text x="277" y="188">{{ .detail.source }}</text></g>
-  <g class="flow-node node-result"><rect x="10" y="158" width="104" height="50" rx="12"/><text x="62" y="188">{{ .detail.result }}</text></g>
+  <defs>
+    <marker
+      id="detail-arrow"
+      markerWidth="8"
+      markerHeight="8"
+      refX="6"
+      refY="4"
+      orient="auto"
+    >
+      <path d="M1 1L6 4 1 7" />
+    </marker>
+  </defs>
+  <g class="flow-lines" marker-end="url(#detail-arrow)">
+    <path d="M112 49H222" />
+    <path d="M277 74V158" />
+    <path d="M225 183H116" />
+    <path d="M233 73L115 159" />
+  </g>
+  <g class="flow-node node-request">
+    <rect x="10" y="24" width="104" height="50" rx="12" />
+    <text x="62" y="54">{{ .detail.request }}</text>
+  </g>
+  <g class="flow-node node-cache">
+    <rect x="225" y="24" width="104" height="50" rx="12" />
+    <text x="277" y="54">{{ .detail.cache }}</text>
+  </g>
+  <g class="flow-node node-source">
+    <rect x="225" y="158" width="104" height="50" rx="12" />
+    <text x="277" y="188">{{ .detail.source }}</text>
+  </g>
+  <g class="flow-node node-result">
+    <rect x="10" y="158" width="104" height="50" rx="12" />
+    <text x="62" y="188">{{ .detail.result }}</text>
+  </g>
 </svg>

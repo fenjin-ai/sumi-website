@@ -1,1 +1,6 @@
-{{ define "main" }}<main class="privacy-page wrap" id="main"><h1>{{ .Params.heading | default .Title }}</h1>{{ .Content }}</main>{{ end }}
+{{ define "main" }}
+  <main class="privacy-page wrap" id="main">
+    <h1>{{ .Params.heading | default .Title }}</h1>
+    {{ .Content }}
+  </main>
+{{ end }}

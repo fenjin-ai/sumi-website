@@ -1,8 +1,9 @@
-name: build and test
+name: Website CI
 on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 permissions:
   contents: read
 concurrency:
@@ -10,20 +11,71 @@ concurrency:
   cancel-in-progress: true
 jobs:
   check:
-    name: build and test
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
+    name: Website checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Install pinned Hugo
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version-file: .python-version
+      - uses: astral-sh/setup-uv@94527f2e458b27549849d47d273a16bec83a01e9 # v7
+        with:
+          version: '0.12.15'
+      - uses: ./.github/actions/setup-hugo
+      - name: Install locked development tools
         run: |
-          version=$(cat .hugo-version)
-          mkdir -p .tools
-          cd .tools
-          curl --fail --location --retry 3 -O "https://github.com/gohugoio/hugo/releases/download/v${version}/hugo_${version}_linux-amd64.tar.gz"
-          curl --fail --location --retry 3 -O "https://github.com/gohugoio/hugo/releases/download/v${version}/hugo_${version}_checksums.txt"
-          sha256sum --check --ignore-missing "hugo_${version}_checksums.txt"
-          tar -xzf "hugo_${version}_linux-amd64.tar.gz" hugo
-          echo "$PWD" >> "$GITHUB_PATH"
-      - name: Build both languages and check SEO and assets
-        run: sh scripts/build.sh
+          npm ci --ignore-scripts
+          uv sync --locked
+      - name: Check scripts and workflow definitions
+        run: |
+          go install github.com/rhysd/actionlint/cmd/actionlint@v1.7.12
+          "$(go env GOPATH)/bin/actionlint" -color
+          shellcheck scripts/*.sh
+          uv run --no-sync ruff check scripts tests/python
+          uv run --no-sync ruff format --check scripts tests/python
+      - name: Lint, build, validate SEO and enforce JavaScript coverage
+        run: npm run verify
+      - name: Verify the checker and enforce Python coverage
+        if: ${{ !cancelled() && hashFiles('dist/index.html') != '' }}
+        run: uv run --no-sync pytest
+      - name: Save coverage summary for the PR comment
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: coverage-summary
+          path: |
+            coverage/coverage-summary.json
+            coverage/python.json
+          if-no-files-found: ignore
+          retention-days: 14
+      - name: Save full coverage reports
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: coverage-html
+          path: coverage/
+          if-no-files-found: ignore
+          retention-days: 14
+      - name: Check dependency advisories
+        run: npm audit --audit-level=high
+      - name: Install browser engines
+        run: npx playwright install --with-deps chromium webkit
+      - name: Check real browser layout, keyboard behavior and accessibility
+        run: npm run test:browser
+      - name: Save browser failure reports
+        if: failure()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: browser-report
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 14

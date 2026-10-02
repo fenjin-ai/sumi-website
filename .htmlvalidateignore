@@ -1,0 +1,3 @@
+# Hugo generates minimal redirect documents for these legacy routes.
+dist/en/index.html
+dist/privacy.html

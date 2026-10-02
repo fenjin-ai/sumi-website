@@ -1,0 +1,7 @@
+{
+  "singleQuote": true,
+  "plugins": ["prettier-plugin-go-template"],
+  "overrides": [
+    { "files": "layouts/**/*.html", "options": { "parser": "go-template" } }
+  ]
+}

@@ -8,3 +8,13 @@ dist/
 __pycache__/
 resources/
 .hugo_build.lock
+node_modules/
+coverage/
+playwright-report/
+test-results/
+.venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+reports/

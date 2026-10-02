@@ -1,1 +1,3 @@
-{{ range $index, $word := .detail.words }}<span class="mini-slide" style="--order: {{ $index }}">{{ $word }}</span>{{ end }}
+{{ range $index, $word := .detail.words }}
+  <span class="mini-slide" style="--order: {{ $index }}">{{ $word }}</span>
+{{ end }}
