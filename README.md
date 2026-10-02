@@ -44,11 +44,11 @@ Primary buttons point directly to a verified macOS Apple silicon preview ZIP. An
 
 ## Publish
 
-Cloudflare Pages connects directly to `leftblank-app/website` on GitHub. The production branch is `main`: merging a PR or pushing to `main` runs the checked build and publishes `dist/` only after all checks pass. Other branches produce preview deployments. GitHub Actions runs the same checked build on PRs and on `main`.
+Cloudflare Pages project `leftblank-website` connects directly to `leftblank-app/website` on GitHub and serves `leftblank.app`. The production branch is `main`: merging a PR or pushing to `main` runs the checked build and publishes `dist/` only after all checks pass. Other branches produce preview deployments. GitHub Actions runs the same checked build on PRs and on `main`. Push source changes to the GitHub remote (`origin`); the former Sites source mirror is a separate repository.
 
 Pages settings are: build command `sh scripts/build.sh`, output directory `dist`, and `HUGO_VERSION=0.166.0` in both production and preview environments. When changing `.hugo-version`, update that Pages variable as well; the build refuses a mismatched compiler. No GitHub deployment secrets are needed. Keep canonical URLs pointed at `https://leftblank.app` for preview deployments too.
 
-The previous Sites publication is recorded in `.openai/hosting.json` for recovery. It does not follow GitHub merges; Cloudflare Pages owns automatic production deployment. Generated output also works on any other static host.
+The previous publication remains available at `https://leftblank.wangfenjin.chatgpt.site` as a fallback. Its hosting manifest is recoverable from Git history; no active Sites manifest remains in this checkout. Cloudflare Pages owns production deployment. Generated output also works on any other static host.
 
 ## License
 
