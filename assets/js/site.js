@@ -32,7 +32,6 @@
     const stories = [...atelier.querySelectorAll('[data-story]')];
     const visuals = stories.map(story => story.querySelector('[data-visual]'));
     const storyList = atelier.querySelector('.atelier-stories');
-    const lens = stage.querySelector('.capture-lens');
     let selected = -1;
     let frame;
 
@@ -46,9 +45,6 @@
       if (selected === index) return;
       selected = index;
       atelier.dataset.scene = stories[index].dataset.story;
-      atelier.classList.remove('is-inspecting');
-      visuals[index].querySelector('.work-window').append(lens);
-      lens.style.backgroundImage = `url("${visuals[index].querySelector('img').getAttribute('src')}")`;
       stories.forEach((story, i) => story.classList.toggle('is-active', i === index));
       visuals.forEach((visual, i) => {
         visual.classList.toggle('is-active', i === index);
@@ -76,7 +72,6 @@
       }
     }
     function requestUpdate() {
-      atelier.classList.remove('is-inspecting');
       if (frame === undefined) frame = requestAnimationFrame(update);
     }
     function setLayout() {
@@ -108,24 +103,6 @@
       linkedStory.scrollIntoView({ block: 'center', inline: 'start', behavior: 'instant' });
       update();
     });
-
-    stage.addEventListener('pointermove', event => {
-      if (event.pointerType !== 'mouse' || reducedMotion.matches || selected < 0) return;
-      const image = visuals[selected].querySelector('.work-window');
-      // Native hit testing follows the pointer, including rotated foreground artwork.
-      const inside = event.target === image;
-      atelier.classList.toggle('is-inspecting', inside);
-      if (!inside) return;
-      const x = event.offsetX;
-      const y = event.offsetY;
-      const radius = lens.offsetWidth / 2;
-      lens.style.left = `${x}px`;
-      lens.style.top = `${y}px`;
-      lens.style.backgroundSize = `${image.clientWidth * 2.4}px ${image.clientHeight * 2.4}px`;
-      lens.style.backgroundPosition = `${radius - x * 2.4}px ${radius - y * 2.4}px`;
-    });
-    stage.addEventListener('pointerleave', () => atelier.classList.remove('is-inspecting'));
-    reducedMotion.addEventListener('change', () => atelier.classList.remove('is-inspecting'));
 
     const viewer = atelier.parentElement.querySelector('[data-viewer]');
     const preview = viewer.querySelector('img');

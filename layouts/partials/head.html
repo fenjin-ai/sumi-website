@@ -27,7 +27,7 @@
 <link rel="icon" href="{{ "favicon.ico" | relURL }}" sizes="any">
 <link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">
 <link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
-{{ $css := slice (resources.Get "css/site.css") (resources.Get "css/atelier.css") | resources.Concat "css/site.css" | minify | fingerprint }}
+{{ $css := slice (resources.Get "css/site.css") (resources.Get "css/atelier.css") (resources.Get "css/cursor.css") | resources.Concat "css/site.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
 {{ $appearance := resources.Get "js/appearance.js" | minify | fingerprint }}
 <script src="{{ $appearance.RelPermalink }}" integrity="{{ $appearance.Data.Integrity }}"></script>

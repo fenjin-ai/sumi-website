@@ -1,0 +1,16 @@
+/* Native cursors keep the pointer precise, with no animation or tracking script. */
+:root {
+  --cursor-default: url('/assets/cursors/ink-light.svg') 4 3, auto;
+  --cursor-link: url('/assets/cursors/link-light.svg') 4 3, pointer;
+}
+:root[data-theme="dark"] {
+  --cursor-default: url('/assets/cursors/ink-dark.svg') 4 3, auto;
+  --cursor-link: url('/assets/cursors/link-dark.svg') 4 3, pointer;
+}
+@media (hover: hover) and (pointer: fine) {
+  html { cursor: var(--cursor-default); }
+  a, button, [role="button"], summary { cursor: var(--cursor-link); }
+  input, textarea, [contenteditable="true"] { cursor: text; }
+  :disabled, [aria-disabled="true"] { cursor: not-allowed; }
+  [aria-busy="true"] { cursor: progress; }
+}

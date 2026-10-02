@@ -50,7 +50,6 @@ html[lang="zh-Hans"] .story-copy h3 { line-height: 1.5; letter-spacing: .01em; }
 .node-source rect { fill: #e5c5b2; }
 .node-result rect { fill: #e4e6dd; }
 .poster-sheet { position: absolute; width: 24%; height: auto; right: -2%; top: 58%; transform: rotate(8deg); box-shadow: 0 15px 30px -10px #17272070; border: 1px solid #17272010; }
-.capture-lens { display: none; }
 .image-viewer { padding: 62px 24px 24px; border: 1px solid var(--line); border-radius: 14px; max-width: min(1600px, 96vw); max-height: 96svh; background: var(--paper); color: var(--ink); box-shadow: 0 30px 100px #0006; }
 .image-viewer::backdrop { background: #101b1bc9; backdrop-filter: blur(16px); }
 .image-viewer img { display: block; max-width: 100%; max-height: calc(96svh - 100px); width: auto; height: auto; object-fit: contain; }
@@ -77,8 +76,6 @@ html[lang="zh-Hans"] .story-copy h3 { line-height: 1.5; letter-spacing: .01em; }
   .atelier[data-scene="slides"] .work-window { transform: rotate(2deg); }
   .atelier[data-scene="diagram"] .work-window { transform: rotate(-1.5deg); }
   .atelier[data-scene="poster"] .work-window { transform: rotate(1deg); }
-  .atelier-stage .work-window, .atelier-stage .work-detail, .atelier-stage .poster-sheet { pointer-events: auto; }
-  .atelier-stage .work-window img { pointer-events: none; }
   .atelier-stage .poster-sheet { opacity: 0; transform: translate3d(40px, 65px, 80px) rotate(18deg); transition: opacity .55s .12s, transform 1.1s cubic-bezier(.16,1,.3,1); }
   .atelier-stage .is-active .poster-sheet { opacity: 1; transform: translate3d(calc(var(--tilt-x, 0) * 8px), calc(var(--tilt-y, 0) * 8px), 80px) rotate(7deg); }
   .atelier-ink { position: absolute; width: 135%; height: 125%; left: -17%; top: -12%; z-index: -1; overflow: visible; stroke: var(--scene-color); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
@@ -98,8 +95,6 @@ html[lang="zh-Hans"] .story-copy h3 { line-height: 1.5; letter-spacing: .01em; }
   .atelier[data-scene="diagram"] [data-ink="diagram"] *,
   .atelier[data-scene="poster"] [data-ink="poster"] * { stroke-dashoffset: 0; }
   .atelier-light { position: absolute; width: 220px; height: 220px; left: calc(50% + var(--tilt-x, 0) * 100px); top: calc(40% + var(--tilt-y, 0) * 70px); transform: translate(-50%, -50%); background: radial-gradient(circle, #ffffff12, transparent 70%); pointer-events: none; z-index: 2; }
-  .capture-lens { display: block; position: absolute; width: 180px; height: 180px; border: 4px solid #ffffffc0; border-radius: 50%; background-color: #202729; background-repeat: no-repeat; box-shadow: 0 12px 40px #0005, inset 0 0 0 1px #0002; pointer-events: none; z-index: 3; opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(.8); transition: opacity .2s, transform .25s cubic-bezier(.16,1,.3,1); }
-  .is-inspecting .capture-lens { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
 }
 @media (max-width: 979px) {
   .possibilities { padding-bottom: 35px; overflow: hidden; }
