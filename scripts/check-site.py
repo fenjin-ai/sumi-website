@@ -30,6 +30,7 @@ for reference in page.references:
     if url.scheme or url.netloc: continue
     if url.path:
         path = (root / unquote(url.path).lstrip('/')).resolve()
+        if path.is_dir(): path = path / 'index.html'
         if not path.is_relative_to(root) or not path.is_file(): page.errors.append(f'Missing local asset: {reference}')
     elif url.fragment and url.fragment not in page.ids: page.errors.append(f'Missing anchor: {reference}')
 manifest = json.loads((root / 'site.webmanifest').read_text())

@@ -10,7 +10,7 @@ Chinese identity: **留白 · 此中有真意，欲辨已忘言**.
 
 The complete site is in `dist/`: plain HTML, CSS and a small amount of JavaScript. There is no build step, package manager, application server, analytics or external font dependency. Appearance follows the system by default. Language and appearance preferences stay in the browser, and `?lang=en` / `?lang=zh` can share a language choice.
 
-Brand assets come from the app repository's deterministic Sigma generator. The six bilingual scene images use designed artwork around real app captures: essays, technical notes, reports, presentation pages, diagrams and posters. The downloadable ZIP contains fourteen original, compilable Typst examples. Presentation pages export to PDF; the site does not promise PPTX or animation export. The app privacy policy is at `/privacy.html`.
+Brand assets come from the app repository's deterministic Sigma generator. The hero composes original Typst works into a paper collage. A keyboard-accessible six-scene gallery shows real app captures: essays, technical notes, reports, presentation pages, diagrams and posters. Images change with the language. The downloadable ZIP contains fourteen original, compilable Typst examples. Presentation pages export to PDF; the site does not promise PPTX or animation export. The app privacy policy is at `/privacy.html`.
 
 ## Develop
 
