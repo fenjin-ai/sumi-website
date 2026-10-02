@@ -20,9 +20,14 @@
   }
   function renderLanguage() {
     root.lang = language === 'zh' ? 'zh-Hans' : 'en';
-    const cover = document.querySelector('.document-preview img');
-    cover.src = language === 'zh' ? '/assets/welcome-zh.png' : '/assets/welcome.png';
-    cover.alt = language === 'zh' ? '留白入门文稿，包含公式、图表与排版示例' : "LeftBlank's starter document, with a diagram, equations, a table and typeset text";
+    document.querySelectorAll('[data-scene]').forEach(image => {
+      const locale = language === 'zh' ? 'zh-Hans' : 'en-US';
+      image.src = `/assets/scenes/${image.dataset.scene}.${locale}.webp`;
+      image.alt = image.dataset[language === 'zh' ? 'altZh' : 'altEn'];
+      const link = image.closest('a');
+      link.href = image.src;
+      link.setAttribute('aria-label', language === 'zh' ? `查看完整画面：${image.alt}` : `View full image: ${image.alt}`);
+    });
     document.querySelectorAll('[data-en][data-zh]').forEach(el => { el.textContent = el.dataset[language]; });
     languageButton.textContent = language === 'zh' ? 'EN' : '中文';
     languageButton.lang = language === 'zh' ? 'en' : 'zh-Hans';
