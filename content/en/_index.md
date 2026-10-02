@@ -27,21 +27,32 @@ scenes:
     title: "Make a complex idea clear."
     description: "Bring equations, code and tables into one readable document. Keep the reasoning and the details together."
     alt: "Equations, code and tables in a LeftBlank technical note"
+    detail:
+      label: "Little’s law"
   - id: "report"
     label: "Reports"
     title: "Give your findings a form."
     description: "Turn observations into a visual report. Draw a chart, compare the results and share a polished PDF."
     alt: "Editing a report with charts and data in LeftBlank"
+    detail:
+      days: ["Mon", "Tue", "Wed", "Thu", "Fri"]
   - id: "slides"
     label: "Presentations"
     title: "A good beginning for your next talk."
     description: "Compose landscape presentation pages in Typst. Arrange the ideas, set the rhythm and share them as a PDF."
     alt: "A landscape Typst presentation page being composed in LeftBlank"
+    detail:
+      words: ["Notice", "Connect", "Express"]
   - id: "diagram"
     label: "Diagrams"
     title: "Let relationships take shape."
     description: "Use Typst packages such as CeTZ to draw connections, workflows and diagrams beside the explanation."
     alt: "A CeTZ workflow diagram and its Typst source in LeftBlank"
+    detail:
+      request: "Request"
+      cache: "Cache"
+      source: "Data source"
+      result: "Result"
   - id: "poster"
     label: "Posters"
     title: "The page is part of the expression."

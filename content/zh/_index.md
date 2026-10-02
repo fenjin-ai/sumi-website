@@ -27,21 +27,32 @@ scenes:
     title: "把复杂的想法讲清楚。"
     description: "让公式、代码与表格，在一份文稿里清楚相遇。把推导的过程和重要的细节，一起留下。"
     alt: "留白技术笔记中的公式、代码、表格与实时预览"
+    detail:
+      label: "利特尔法则"
   - id: "report"
     label: "报告"
     title: "把思路写成一份好报告。"
     description: "用图表梳理观察，用表格对照结果。让重要的信息更好理解，再导出一份可以分享的 PDF。"
     alt: "留白中的图表报告编辑与 PDF 排版预览"
+    detail:
+      days: ["一", "二", "三", "四", "五"]
   - id: "slides"
     label: "演示稿"
     title: "给下一次演讲，一个好开场。"
     description: "用 Typst 排出横版演示页。安排节奏、梳理观点，导出 PDF 演示稿，讲给更多人听。"
     alt: "留白中的横版 Typst 演示页编辑与预览"
+    detail:
+      words: ["观察", "连接", "表达"]
   - id: "diagram"
     label: "图解"
     title: "让关系，有形可见。"
     description: "用 CeTZ 等 Typst 包画出节点与联系。让流程图与说明待在一起，一张图，看懂思路。"
     alt: "留白中的 CeTZ 流程图与 Typst 源码"
+    detail:
+      request: "请求"
+      cache: "缓存"
+      source: "数据源"
+      result: "返回结果"
   - id: "poster"
     label: "海报"
     title: "页面，也是一种表达方式。"

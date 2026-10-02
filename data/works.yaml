@@ -10,6 +10,7 @@ report:
   file: "03-report"
   width: 1000
   height: 1414
+  values: [1.5, 2.0, 1.0, 3.0, 2.5]
 slides:
   file: "04-slides"
   width: 1000

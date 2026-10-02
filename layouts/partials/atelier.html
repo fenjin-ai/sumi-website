@@ -18,7 +18,11 @@
         <div class="story-copy"><span class="eyebrow">{{ .label }}</span><h3 id="title-{{ .id }}">{{ .title }}</h3><p>{{ .description }}</p><a class="text-link" href="{{ $capture }}" data-full-view>{{ T "full-view" }}</a></div>
         <figure class="work-visual" data-visual="{{ .id }}" aria-labelledby="title-{{ .id }}">
           <div class="work-window"><img src="{{ $capture }}" width="1800" height="985" alt="{{ .alt }}" loading="lazy" decoding="async"></div>
-          <img class="work-page" src="/assets/works/{{ $work.file }}.{{ site.Language.Params.imageLocale }}.webp" width="{{ $work.width }}" height="{{ $work.height }}" alt="" aria-hidden="true" loading="lazy" decoding="async">
+          {{ if eq .id "poster" }}
+          <img class="poster-sheet" src="/assets/works/{{ $work.file }}.{{ site.Language.Params.imageLocale }}.webp" width="{{ $work.width }}" height="{{ $work.height }}" alt="" aria-hidden="true" loading="lazy" decoding="async">
+          {{ else if ne .id "essay" }}
+          <div class="work-detail detail-{{ .id }}" aria-hidden="true">{{ partial (printf "details/%s.html" .id) . }}</div>
+          {{ end }}
         </figure>
       </article>
       {{ end }}

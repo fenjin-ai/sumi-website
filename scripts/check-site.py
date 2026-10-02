@@ -138,6 +138,9 @@ for relative, locale in [('index.html', 'en-US'), ('zh/index.html', 'zh-Hans')]:
     captures = [image for image in page.images if '/app-' in image.get('src', '')]
     if len(captures) != 6 or any(f'.{locale}.webp' not in image['src'] for image in captures):
         page.fail('Expected six localized app captures')
+    sheets = [image for image in page.images if image.get('class') == 'poster-sheet']
+    if len(sheets) != 1 or f'06-poster.{locale}.webp' not in sheets[0].get('src', ''):
+        page.fail('Only the poster should repeat a full floating page')
     if page.language != locale or page.schema[0]['@type'] != 'SoftwareApplication':
         page.fail('Incorrect homepage language or app schema')
     if 'Explore LeftBlank' in page.path.read_text():

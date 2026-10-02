@@ -4,7 +4,7 @@ The bilingual product website at [leftblank.app](https://leftblank.app), built w
 
 ## Edit the site
 
-- `content/en/_index.md`, `content/zh/_index.md`: homepage copy and the six creative scenes. Keep scene IDs in the same order in both languages.
+- `content/en/_index.md`, `content/zh/_index.md`: homepage copy, creative scenes, and their localized detail labels. Keep scene IDs in the same order in both languages.
 - `content/*/privacy.md`: localized privacy pages in ordinary Markdown.
 - `i18n/`: short interface labels, navigation, and download messages.
 - `layouts/`: shared Hugo templates and small section partials.
@@ -35,7 +35,9 @@ The checker uses Python 3.9+ and its standard library. It validates local links 
 
 English lives at `/`, Chinese at `/zh/`. Each has its own HTML, screenshots, canonical URL, reciprocal `hreflang`, social metadata, and application structured data. Hugo generates sitemap and robots files. Privacy lives at `/privacy/` and `/zh/privacy/`; `/privacy.html` redirects to its new location. Old `?lang=en` / `?lang=zh` links still work. Explicit language links retain browser preferences. System/light/dark appearance is resolved before first paint.
 
-On wide screens, the showcase follows normal page scrolling: a sticky stage changes between real app captures, floating finished pages, and topic-specific ink drawings. Pointer movement adds depth and a local magnifying lens. On smaller screens, the same six articles become native horizontally scrollable cards, with keyboard access and scroll snapping. Every scene offers an accessible full-size image dialog with native Escape and focus restoration. There is no autoplay or scrolling interception.
+On wide screens, the showcase follows normal page scrolling: a sticky stage changes between real app captures and topic-specific ink drawings. Each scene has its own composition: an uncluttered essay, a typeset equation, growing report bars, staggered presentation cards, drawn diagram connections, and one floating poster sheet. Detail text and chart values come from the original example documents; their small Hugo partials live in `layouts/partials/details/`. Pointer movement adds depth and a local magnifying lens.
+
+On smaller screens, the same six articles become native horizontally scrollable cards, with keyboard access and scroll snapping. The container allows only horizontal scrolling; vertical gestures scroll the page. Every scene offers an accessible full-size image dialog with native Escape and focus restoration. There is no autoplay or scrolling interception.
 
 Reduced motion disables animations, pointer effects, and transforms. Without JavaScript, all six scenes remain readable, language links and direct downloads work, and large-image links open the original screenshots. Browser checks after interaction changes should cover both languages and appearances, desktop/mobile resizing, the final scene, keyboard preview/close, and horizontal scrolling.
 

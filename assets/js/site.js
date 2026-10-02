@@ -90,6 +90,13 @@
       if (story && wideScreen.matches) select(stories.indexOf(story));
     });
     setLayout();
+    const cardsInView = new IntersectionObserver(entries => {
+      if (wideScreen.matches) return;
+      entries.forEach(entry => {
+        if (entry.isIntersecting) select(stories.indexOf(entry.target));
+      });
+    }, { root: storyList, threshold: .6 });
+    stories.forEach(story => cardsInView.observe(story));
     // Native fragment scrolling can run before the desktop stage is assembled.
     const linkedStory = stories.find(story => `#${story.id}` === location.hash);
     if (linkedStory) requestAnimationFrame(() => {
