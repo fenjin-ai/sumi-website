@@ -47,6 +47,7 @@
       selected = index;
       atelier.dataset.scene = stories[index].dataset.story;
       atelier.classList.remove('is-inspecting');
+      visuals[index].querySelector('.work-window').append(lens);
       lens.style.backgroundImage = `url("${visuals[index].querySelector('img').getAttribute('src')}")`;
       stories.forEach((story, i) => story.classList.toggle('is-active', i === index));
       visuals.forEach((visual, i) => {
@@ -110,25 +111,17 @@
 
     stage.addEventListener('pointermove', event => {
       if (event.pointerType !== 'mouse' || reducedMotion.matches || selected < 0) return;
-      const bounds = stage.getBoundingClientRect();
-      const visual = visuals[selected];
-      const image = visual.querySelector('.work-window').getBoundingClientRect();
-      const x = event.clientX - image.left;
-      const y = event.clientY - image.top;
-      const inside = x >= 0 && y >= 0 && x <= image.width && y <= image.height;
+      const image = visuals[selected].querySelector('.work-window');
+      // Native hit testing follows the pointer, including rotated foreground artwork.
+      const inside = event.target === image;
+      atelier.classList.toggle('is-inspecting', inside);
+      if (!inside) return;
+      const x = event.offsetX;
+      const y = event.offsetY;
       const radius = lens.offsetWidth / 2;
-      // The lens samples the capture, so its whole circle must avoid foreground artwork.
-      const occluded = [...visual.querySelectorAll('.work-detail, .mini-slide, .poster-sheet')].some(detail => {
-        const rect = detail.getBoundingClientRect();
-        const dx = Math.max(rect.left - event.clientX, 0, event.clientX - rect.right);
-        const dy = Math.max(rect.top - event.clientY, 0, event.clientY - rect.bottom);
-        return Math.hypot(dx, dy) <= radius;
-      });
-      atelier.classList.toggle('is-inspecting', inside && !occluded);
-      if (!inside || occluded) return;
-      lens.style.left = `${event.clientX - bounds.left}px`;
-      lens.style.top = `${event.clientY - bounds.top}px`;
-      lens.style.backgroundSize = `${image.width * 2.4}px ${image.height * 2.4}px`;
+      lens.style.left = `${x}px`;
+      lens.style.top = `${y}px`;
+      lens.style.backgroundSize = `${image.clientWidth * 2.4}px ${image.clientHeight * 2.4}px`;
       lens.style.backgroundPosition = `${radius - x * 2.4}px ${radius - y * 2.4}px`;
     });
     stage.addEventListener('pointerleave', () => atelier.classList.remove('is-inspecting'));
