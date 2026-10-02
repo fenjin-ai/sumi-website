@@ -1,0 +1,41 @@
+baseURL = 'https://leftblank.app/'
+title = 'LeftBlank'
+defaultContentLanguage = 'en'
+defaultContentLanguageInSubdir = false
+disableKinds = ['taxonomy', 'term', 'RSS']
+enableRobotsTXT = true
+enableMissingTranslationPlaceholders = true
+publishDir = 'dist'
+
+[params]
+githubURL = 'https://github.com/leftblank-app/leftblank'
+releasesAPI = 'https://api.github.com/repos/leftblank-app/leftblank/releases?per_page=20'
+downloadURL = 'https://github.com/leftblank-app/leftblank/releases/download/preview-95.1/LeftBlank-Preview-0.5.0-95.1-macOS-arm64.zip'
+
+[languages.en]
+locale = 'en-US'
+label = 'EN'
+contentDir = 'content/en'
+weight = 1
+[languages.en.params]
+htmlLang = 'en-US'
+imageLocale = 'en-US'
+ogLocale = 'en_US'
+switchLabel = 'Switch to English'
+socialImage = 'social.png'
+
+[languages.zh]
+locale = 'zh-Hans'
+label = '中文'
+contentDir = 'content/zh'
+weight = 2
+[languages.zh.params]
+htmlLang = 'zh-Hans'
+imageLocale = 'zh-Hans'
+ogLocale = 'zh_CN'
+switchLabel = '切换为中文'
+socialImage = 'social-zh.png'
+
+[sitemap]
+changeFreq = ''
+priority = -1

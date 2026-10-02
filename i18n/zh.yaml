@@ -1,0 +1,50 @@
+skip-to-content:
+  other: "跳到正文"
+leftblank:
+  other: "留白"
+possibilities:
+  other: "创作可能"
+the-writing-space:
+  other: "写作空间"
+appearance:
+  other: "外观"
+see-what-you-can-make:
+  other: "看看能创造什么 ↓"
+download-the-examples:
+  other: "下载示例，开始创作 ↗"
+ink-for-your-thoughts:
+  other: "此中有真意，欲辨已忘言"
+support:
+  other: "帮助与反馈"
+privacy:
+  other: "隐私政策"
+download-nightly:
+  other: "下载 nightly"
+home-label:
+  other: "留白首页"
+navigation-label:
+  other: "主导航"
+hero-art-label:
+  other: "用留白创作的原创作品"
+appearance-system:
+  other: "跟随系统"
+appearance-light:
+  other: "浅色"
+appearance-dark:
+  other: "深色"
+appearance-change:
+  other: "外观：{current}。切换为{next}。"
+nightly-note:
+  other: "Nightly 预览版 · macOS 14+ · Apple 芯片"
+not-found:
+  other: "这一页，还是留白。"
+back-home:
+  other: "返回留白首页"
+download-loading:
+  other: "正在获取最新 nightly…"
+full-view:
+  other: "放大看看 ↗"
+close-view:
+  other: "关闭大图"
+swipe-hint:
+  other: "左右滑动，翻阅创作空间 →"

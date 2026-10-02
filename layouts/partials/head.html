@@ -1,0 +1,38 @@
+{{- $description := .Description | default site.Home.Description -}}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ .Title }}</title>
+<meta name="description" content="{{ $description }}">
+<meta name="theme-color" content="#f4f4ef">
+{{ if eq .Kind "404" }}<meta name="robots" content="noindex">{{ end }}
+<link rel="canonical" href="{{ .Permalink }}">
+{{ range .AllTranslations }}<link rel="alternate" hreflang="{{ .Language.Params.htmlLang }}" href="{{ .Permalink }}">{{ if eq .Language.Lang "en" }}<link rel="alternate" hreflang="x-default" href="{{ .Permalink }}">{{ end }}{{ end }}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LeftBlank">
+<meta property="og:title" content="{{ .Title }}">
+<meta property="og:description" content="{{ $description }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:locale" content="{{ site.Language.Params.ogLocale }}">
+{{ range .Translations }}<meta property="og:locale:alternate" content="{{ .Language.Params.ogLocale }}">{{ end }}
+{{ $social := printf "assets/%s" site.Language.Params.socialImage | absURL }}
+<meta property="og:image" content="{{ $social }}">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="{{ .Title }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ .Title }}">
+<meta name="twitter:description" content="{{ $description }}">
+<meta name="twitter:image" content="{{ $social }}">
+<link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+<link rel="icon" href="{{ "favicon.ico" | relURL }}" sizes="any">
+<link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">
+<link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
+{{ $css := slice (resources.Get "css/site.css") (resources.Get "css/atelier.css") (resources.Get "css/cursor.css") | resources.Concat "css/site.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+{{ $appearance := resources.Get "js/appearance.js" | minify | fingerprint }}
+<script src="{{ $appearance.RelPermalink }}" integrity="{{ $appearance.Data.Integrity }}"></script>
+{{ $script := resources.Get "js/site.js" | minify | fingerprint }}
+<script src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}" defer></script>
+{{ $schema := dict "@context" "https://schema.org" "@type" "WebPage" "name" .Title "description" $description "url" .Permalink "inLanguage" site.Language.Params.htmlLang }}
+{{ if .IsHome }}{{ $schema = dict "@context" "https://schema.org" "@type" "SoftwareApplication" "name" "LeftBlank" "alternateName" "留白" "description" $description "url" .Permalink "inLanguage" site.Language.Params.htmlLang "applicationCategory" "ProductivityApplication" "operatingSystem" "macOS 14 or later, Apple silicon" "downloadUrl" site.Params.downloadURL "isAccessibleForFree" true "offers" (dict "@type" "Offer" "price" "0" "priceCurrency" "USD") }}{{ end }}
+<script type="application/ld+json">{{ $schema | jsonify | safeJS }}</script>

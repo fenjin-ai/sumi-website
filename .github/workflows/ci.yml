@@ -15,8 +15,15 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Check JavaScript and local assets
+      - name: Install pinned Hugo
         run: |
-          node --check dist/appearance.js
-          node --check dist/site.js
-          python3 scripts/check-site.py
+          version=$(cat .hugo-version)
+          mkdir -p .tools
+          cd .tools
+          curl --fail --location --retry 3 -O "https://github.com/gohugoio/hugo/releases/download/v${version}/hugo_${version}_linux-amd64.tar.gz"
+          curl --fail --location --retry 3 -O "https://github.com/gohugoio/hugo/releases/download/v${version}/hugo_${version}_checksums.txt"
+          sha256sum --check --ignore-missing "hugo_${version}_checksums.txt"
+          tar -xzf "hugo_${version}_linux-amd64.tar.gz" hugo
+          echo "$PWD" >> "$GITHUB_PATH"
+      - name: Build both languages and check SEO and assets
+        run: sh scripts/build.sh

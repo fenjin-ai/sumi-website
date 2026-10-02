@@ -2,3 +2,9 @@
 .sites-runtime/
 .sites-checkout/
 *.tar.gz
+dist/
+.tools/
+.build/
+__pycache__/
+resources/
+.hugo_build.lock

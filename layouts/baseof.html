@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="{{ site.Language.Params.htmlLang }}" data-language="{{ site.Language.Lang }}"{{ range .AllTranslations }} data-url-{{ .Language.Lang }}="{{ .RelPermalink }}"{{ end }}>
+<head>{{ partial "head.html" . }}</head>
+<body>
+<a class="skip" href="#main">{{ T "skip-to-content" }}</a>
+{{ partial "header.html" . }}
+{{ block "main" . }}{{ end }}
+{{ partial "footer.html" . }}
+</body>
+</html>

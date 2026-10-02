@@ -1,0 +1,9 @@
+<svg viewBox="0 0 320 220" fill="none">
+  {{ range $index, $value := hugo.Data.works.report.values }}
+  {{ $y := add 24 (mul $index 38) }}
+  <text x="14" y="{{ add $y 15 }}" class="chart-day">{{ index $.detail.days $index }}</text>
+  <rect class="chart-track" x="60" y="{{ $y }}" width="188" height="20" rx="5"/>
+  <rect class="chart-bar" x="60" y="{{ $y }}" width="{{ mul (div $value 3.0) 188 }}" height="20" rx="5" style="--order: {{ $index }}"/>
+  <text x="272" y="{{ add $y 15 }}" class="chart-value">{{ $value }} h</text>
+  {{ end }}
+</svg>
