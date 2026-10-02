@@ -95,8 +95,8 @@ html[lang="zh-Hans"] .story-copy h3 { line-height: 1.5; letter-spacing: .01em; }
   .atelier[data-scene="diagram"] [data-ink="diagram"] *,
   .atelier[data-scene="poster"] [data-ink="poster"] * { stroke-dashoffset: 0; }
   .atelier-light { position: absolute; width: 220px; height: 220px; left: calc(50% + var(--tilt-x, 0) * 100px); top: calc(40% + var(--tilt-y, 0) * 70px); transform: translate(-50%, -50%); background: radial-gradient(circle, #ffffff12, transparent 70%); pointer-events: none; z-index: 2; }
-  .capture-lens { position: absolute; width: 180px; height: 180px; border: 4px solid #ffffffc0; border-radius: 50%; background-color: #202729; background-repeat: no-repeat; box-shadow: 0 12px 40px #0005, inset 0 0 0 1px #0002; pointer-events: none; z-index: 3; opacity: 0; transform: translate(-50%, -50%) scale(.8); transition: opacity .2s, transform .25s cubic-bezier(.16,1,.3,1); }
-  .is-inspecting .capture-lens { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  .capture-lens { position: absolute; width: 180px; height: 180px; border: 4px solid #ffffffc0; border-radius: 50%; background-color: #202729; background-repeat: no-repeat; box-shadow: 0 12px 40px #0005, inset 0 0 0 1px #0002; pointer-events: none; z-index: 3; opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(.8); transition: opacity .2s, transform .25s cubic-bezier(.16,1,.3,1); }
+  .is-inspecting .capture-lens { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
 }
 @media (max-width: 979px) {
   .possibilities { padding-bottom: 35px; overflow: hidden; }
