@@ -10,3 +10,4 @@ static/
 package-lock.json
 uv.lock
 reports/
+vendor/

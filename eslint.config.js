@@ -5,6 +5,7 @@ export default [
   {
     ignores: [
       'dist/**',
+      'vendor/**',
       'reports/**',
       'resources/**',
       'coverage/**',
